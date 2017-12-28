@@ -1,17 +1,20 @@
 const Gdax = require('gdax');
 const publicClient = new Gdax.PublicClient();
+var express = require('express');
+var app = express();
 
-var http = require("http");
+app.get("/", function(req, res){
+	res.send(
+		publicClient.getProductTicker('ETH-USD', function(error, response, data){
+			if(error){
+				throw error;
+			} else {
+				return data['price'];
+			}
+		})
+	);
+});
 
-http.createServer(function(request, response){
-	response.writeHead(200, {'Content-Type' : 'text/plain'})
-	response.end(
-	publicClient.getProductTicker('ETH-USD', function(error, response, data){
-		if(error){
-			throw error;
-		} else {
-			process.stdout.write(data['price']);
-		}
-	}));
-}).listen(8000, '127.0.0.1');
-console.log("Server Running on 127.0.0.1");
+app.listen(3000, function(){
+	console.log("hello world");
+});
