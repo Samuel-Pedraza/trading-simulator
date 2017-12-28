@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "gdax": "github:coinbase/gdax-node"
+    "express": "^4.16.2",
+    "gdax": "github:coinbase/gdax-node",
+    "http": "0.0.0"
   }
 }
